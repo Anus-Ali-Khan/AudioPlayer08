@@ -1,13 +1,22 @@
 import React, {PropsWithChildren} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {Track} from 'react-native-track-player';
 
-type SongInfoProps = PropsWithChildren<{
+type SurahInfoProps = PropsWithChildren<{
   track: Track | null | undefined;
 }>;
 
-const SurahInfo = ({track}: SongInfoProps) => {
-  return <View></View>;
+const SurahInfo = ({track}: SurahInfoProps) => {
+  return (
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.name}>{track?.title}</Text>
+        <Text style={styles.artist}>
+          {track?.artist} . {track?.album}
+        </Text>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
