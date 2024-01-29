@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, Image, StyleSheet, View} from 'react-native';
+import {Dimensions, FlatList, Image, StyleSheet, View} from 'react-native';
 import TrackPlayer, {
   Event,
   Track,
@@ -18,11 +18,8 @@ const SurahPlayer = () => {
   useTrackPlayerEvents([Event.PlaybackActiveTrackChanged], async event => {
     switch (event.type) {
       case Event.PlaybackActiveTrackChanged:
-        const playingTrack = await TrackPlayer.getActiveTrack();
-
-        break;
-
-      default:
+        const playingTrack = await TrackPlayer.getTrack(event.index ?? 0);
+        setTrack(playingTrack);
         break;
     }
   });
@@ -41,6 +38,20 @@ const SurahPlayer = () => {
       </View>
     );
   };
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        horizontal
+        data={playListData}
+        renderItem={renderArtWork}
+        keyExtractor={surah => surah.id.toString()}
+      />
+      <SurahInfo track={track} />
+      <SurahSlider />
+      <ControlCenter />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -56,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   albumContainer: {
-    width: 300,
+    width: 330,
     height: 300,
   },
   albumArtImg: {

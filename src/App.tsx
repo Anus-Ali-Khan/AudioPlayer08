@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import {setupPlayer, addTrack} from '../SurahsRecitationServices';
+import SurahPlayer from './screens/SurahPlayer';
 
 function App(): React.JSX.Element {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -37,10 +38,10 @@ function App(): React.JSX.Element {
   }
 
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <Text>hello</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <StatusBar barStyle={'light-content'} />
+      <SurahPlayer />
+    </View>
   );
 }
 
